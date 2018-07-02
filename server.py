@@ -7,16 +7,12 @@ BOT_TOKEN = ''
 
 client = discord.Client()
 
-def format(data):
-    return ("```\n{}\n```".format(data))
-
 @client.event
 async def on_message(message):
     if message.author.bot or message.author == client.user:
         return
     
     tokens = message.content.split(' ')
-    print (tokens)
     if "https://2018.javazone.no/program/" in tokens[0]:       
         data = api_format(tokens[0])
 
@@ -27,8 +23,8 @@ async def on_message(message):
         embed.add_field(name="Length", value=data[5], inline=True)
         await client.send_message(message.channel, embed=embed)
 
-    else:
-        return
+    if "https://2018.javazone.no/program/" not in tokens[0]:
+        pass
 
 @client.event
 async def on_ready():
